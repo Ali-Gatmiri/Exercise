@@ -16,13 +16,10 @@ namespace Tecsys.Exercise.UnitTest
 {
     public class OneTimeSetUp
     {
-        private readonly IDateTime _dateTime;
         private readonly IServiceScopeFactory _scopeFactory;
         private WingtiptoysDbContext _dbContext;
         public OneTimeSetUp()
         {
-            _dateTime = new DateTimeService();
-
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", true, true)
@@ -43,8 +40,6 @@ namespace Tecsys.Exercise.UnitTest
             startup.ConfigureServices(services);
             _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
         }
-
-        public IDateTime DateTime => _dateTime;
 
         public async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
         {
